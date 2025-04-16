@@ -1,0 +1,20 @@
+What is Bit Manipulation?
+Bit manipulation is the act of algorithmically manipulating bits (0s and 1s), which are the most basic form of data in computers. It involves using bitwise operators to perform operations directly on the binary representation of integers.
+
+Why Use Bit Manipulation?
+Bit manipulation is incredibly powerful in algorithm design because it provides:
+
+Performance: Bit operations are extremely fast — often faster than arithmetic or logical operations.
+
+Memory Efficiency: You can pack multiple Boolean or small-range values into a single integer.
+
+Elegance: Some tricky problems can be solved very neatly using bit tricks.
+
+Advantages of Bit Manipulation
+
+Advantage	Description
+Speed	Bitwise operations are very fast (constant time O(1) execution)
+Compact Code	Many operations like swapping, toggling, checking can be 1-liners
+Space Optimization	Boolean arrays/sets can be stored compactly using bitmasks
+Used in Real World	Cryptography, Graphics, Compression, Hashing, Network protocols
+Helpful in CP	Popular in competitive programming and low-level optimization

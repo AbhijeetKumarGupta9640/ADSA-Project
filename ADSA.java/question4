@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class EqualPrefixSuffixSplit {
+
+    
+    public static boolean canBeSplit(int[] arr) {
+        int totalSum = 0;
+        for (int num : arr) {
+            totalSum += num;
+        }
+
+        int prefixSum = 0;
+        for (int i = 0; i < arr.length - 1; i++) { 
+            prefixSum += arr[i];
+            int suffixSum = totalSum - prefixSum;
+            if (prefixSum == suffixSum) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        
+        if (canBeSplit(arr)) {
+            System.out.println("Array CAN be split into equal prefix and suffix sums.");
+        } else {
+            System.out.println("Array CANNOT be split into equal prefix and suffix sums.");
+        }
+    }
+}
+
+
+/*Time Complexity:
+Calculating total sum: O(n)
+
+Looping to check split: O(n)
+
+Total: O(n)
+
+Space Complexity:
+O(1) */

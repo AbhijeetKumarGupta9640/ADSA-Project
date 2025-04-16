@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Subsets {
+    
+    // Function to generate all subsets using backtracking
+    public static List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(nums, 0, new ArrayList<>(), result);
+        return result;
+    }
+    
+    // Helper function to perform backtracking
+    private static void backtrack(int[] nums, int index, List<Integer> current, List<List<Integer>> result) {
+        // Add the current subset to the result
+        result.add(new ArrayList<>(current));
+        
+        // Explore further by including elements one by one
+        for (int i = index; i < nums.length; i++) {
+            current.add(nums[i]);  // Include nums[i] in the current subset
+            backtrack(nums, i + 1, current, result);  // Recur to explore further
+            current.remove(current.size() - 1);  // Backtrack, remove nums[i] from the subset
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3};
+        List<List<Integer>> result = subsets(nums);
+        
+        // Print the subsets
+        System.out.println("All subsets: " + result);
+    }
+}
+
+
+/*Time Complexity:
+
+The total number of subsets of an array of size n is 2^n.
+
+In the worst case, we visit all subsets and copy them to the result list. Thus, the time complexity is O(2^n * n) because each subset requires O(n) time to be copied into the result list.
+
+Space Complexity:
+
+The space complexity is also O(2^n * n) because we store all subsets, and each subset can have up to n elements.
+
+Additionally, the recursion stack could go as deep as n (for the backtracking approach), but this doesn't affect the overall space complexity since it's dominated by the storage of the subsets.
+
+ */

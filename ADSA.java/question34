@@ -1,0 +1,43 @@
+import java.util.HashMap;
+
+public class SubarraySumEqualToK {
+    
+    public static int subarraySum(int[] nums, int K) {
+        // HashMap to store the frequency of prefix sums
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        hashMap.put(0, 1);  // Base case: sum = 0 has one occurrence (no elements)
+        
+        int count = 0;
+        int prefix_sum = 0;
+        
+        // Traverse the array
+        for (int num : nums) {
+            prefix_sum += num;  // Update the running sum
+            
+            // If prefix_sum - K exists in the hashMap, it means we found a subarray with sum = K
+            if (hashMap.containsKey(prefix_sum - K)) {
+                count += hashMap.get(prefix_sum - K);
+            }
+            
+            // Update the frequency of the prefix_sum in the hashMap
+            hashMap.put(prefix_sum, hashMap.getOrDefault(prefix_sum, 0) + 1);
+        }
+        
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 1, 1};
+        int K = 2;
+        System.out.println("Number of subarrays with sum " + K + ": " + subarraySum(nums, K));  // Output: 2
+    }
+}
+
+
+/*Time Complexity: O(n)
+
+We traverse the array once, and each operation (checking and updating the hashMap) takes constant time.
+
+Space Complexity: O(n)
+
+The hashMap stores the prefix sums encountered so far, which can be at most n + 1 different sums (in the worst case). Hence, space complexity is linear with respect to the array size. */

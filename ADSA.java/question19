@@ -1,0 +1,45 @@
+public class MaximumProductSubarray {
+
+    public static int maxProduct(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+
+        // Initialize variables to store the maximum and minimum products
+        int max_product = nums[0];
+        int min_product = nums[0];
+        int result = nums[0];
+
+        // Traverse the array
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] < 0) {
+                // Swap max_product and min_product if current element is negative
+                int temp = max_product;
+                max_product = min_product;
+                min_product = temp;
+            }
+
+            // Update the max_product and min_product for the current number
+            max_product = Math.max(nums[i], max_product * nums[i]);
+            min_product = Math.min(nums[i], min_product * nums[i]);
+
+            // Update result to hold the maximum product found so far
+            result = Math.max(result, max_product);
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {2, 3, -2, 4};
+        int result = maxProduct(nums);
+        System.out.println("Maximum Product Subarray: " + result);
+    }
+}
+
+
+/*Time Complexity:
+O(n), where n is the number of elements in the array.
+
+We only iterate through the array once.
+
+Space Complexity:
+O(1), as we are using only a constant amount of extra space for the max_product, min_product, and result */

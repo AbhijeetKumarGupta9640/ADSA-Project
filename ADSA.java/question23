@@ -1,0 +1,74 @@
+import java.util.*;
+
+public class MaxXOR {
+
+    static class TrieNode {
+        TrieNode[] children = new TrieNode[2];
+    }
+
+    static class Trie {
+        TrieNode root = new TrieNode();
+
+        // Insert a number into Trie
+        void insert(int num) {
+            TrieNode node = root;
+            for (int i = 31; i >= 0; i--) {
+                int bit = (num >> i) & 1;
+                if (node.children[bit] == null)
+                    node.children[bit] = new TrieNode();
+                node = node.children[bit];
+            }
+        }
+
+        // Find maximum XOR of num with elements already in Trie
+        int getMaxXOR(int num) {
+            TrieNode node = root;
+            int maxXOR = 0;
+            for (int i = 31; i >= 0; i--) {
+                int bit = (num >> i) & 1;
+                // Try to take the opposite bit
+                int toggleBit = 1 - bit;
+                if (node.children[toggleBit] != null) {
+                    maxXOR |= (1 << i);
+                    node = node.children[toggleBit];
+                } else {
+                    node = node.children[bit];
+                }
+            }
+            return maxXOR;
+        }
+    }
+
+    public static int findMaximumXOR(int[] nums) {
+        Trie trie = new Trie();
+        int max = 0;
+
+        // Insert first number to start comparisons
+        trie.insert(nums[0]);
+
+        for (int i = 1; i < nums.length; i++) {
+            int current = nums[i];
+            int currentMax = trie.getMaxXOR(current);
+            max = Math.max(max, currentMax);
+            trie.insert(current); // Insert current number into Trie
+        }
+
+        return max;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {3, 10, 5, 25, 2, 8}; // Example
+        int result = findMaximumXOR(nums);
+        System.out.println("Maximum XOR of two numbers: " + result);
+    }
+}
+
+
+/* Time Complexity:
+Insert/Search in Trie: O(32) per number (32 bits for integer)
+
+For n numbers:
+O(n * 32) ⇒ O(n)
+
+Space Complexity:
+Trie has at most n * 32 nodes ⇒ O(n) */

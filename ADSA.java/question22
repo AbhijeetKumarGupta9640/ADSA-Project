@@ -1,0 +1,21 @@
+public class PowerOfTwoChecker {
+
+    public static boolean isPowerOfTwo(int n) {
+        // n must be positive and n & (n - 1) must be 0
+        return n > 0 && (n & (n - 1)) == 0;
+    }
+
+    public static void main(String[] args) {
+        int num = 16; // You can test with other values
+        if (isPowerOfTwo(num)) {
+            System.out.println(num + " is a power of two.");
+        } else {
+            System.out.println(num + " is NOT a power of two.");
+        }
+    }
+}
+
+
+/*Time Complexity: O(1) — Only one bitwise operation and comparison.
+
+Space Complexity: O(1) — No extra space used. */

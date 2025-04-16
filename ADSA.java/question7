@@ -1,0 +1,38 @@
+import java.util.HashSet;
+
+public class SlidingWindowExample {
+
+    public static int longestUniqueSubstring(String s) {
+        int maxLength = 0;
+        int start = 0;
+        HashSet<Character> seen = new HashSet<>();
+
+        for (int end = 0; end < s.length(); end++) {
+            char currentChar = s.charAt(end);
+
+            while (seen.contains(currentChar)) {
+                seen.remove(s.charAt(start));
+                start++;
+            }
+
+            seen.add(currentChar);
+            maxLength = Math.max(maxLength, end - start + 1);
+        }
+
+        return maxLength;
+    }
+
+    public static void main(String[] args) {
+        String input = "abcabcbb";
+        int result = longestUniqueSubstring(input);
+        System.out.println("Length of longest unique substring: " + result);
+    }
+}
+
+
+
+/*Time Complexity: O(n) – each character is visited at most twice
+
+Space Complexity: O(k) – where k is the character set size (e.g., 26 for lowercase letters)
+
+ */

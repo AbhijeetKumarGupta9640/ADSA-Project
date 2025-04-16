@@ -1,0 +1,41 @@
+public class TwoSumSorted {
+
+    public static int[] findTwoSum(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+
+        while (left < right) {
+            int sum = nums[left] + nums[right];
+
+            if (sum == target) {
+                return new int[]{left, right}; // 0-based index
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return null; // No valid pair found
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 4, 6, 10};
+        int target = 8;
+
+        int[] result = findTwoSum(nums, target);
+
+        if (result != null) {
+            System.out.println("Pair found at indices: " + result[0] + " and " + result[1]);
+            System.out.println("Numbers are: " + nums[result[0]] + " + " + nums[result[1]] + " = " + target);
+        } else {
+            System.out.println("No pair found.");
+        }
+    }
+}
+
+
+/* Time Complexity:
+O(n) — one pass through the array
+
+Space Complexity:
+O(1) — only pointers used*/

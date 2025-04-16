@@ -1,0 +1,48 @@
+import java.util.Stack;
+
+public class LargestRectangleInHistogram {
+
+    public static int largestRectangleArea(int[] heights) {
+        // Stack to store indices of the histogram's bars
+        Stack<Integer> stack = new Stack<>();
+        int maxArea = 0;
+        int n = heights.length;
+        
+        for (int i = 0; i < n; ) {
+            // If the stack is empty or the current bar is taller than the bar at the stack's top index
+            if (stack.isEmpty() || heights[i] >= heights[stack.peek()]) {
+                stack.push(i++);
+            } else {
+                // Pop the top of the stack and calculate the area
+                int height = heights[stack.pop()];
+                int width = (stack.isEmpty()) ? i : i - stack.peek() - 1;
+                maxArea = Math.max(maxArea, height * width);
+            }
+        }
+
+        // Calculate area for the remaining bars in the stack
+        while (!stack.isEmpty()) {
+            int height = heights[stack.pop()];
+            int width = (stack.isEmpty()) ? n : n - stack.peek() - 1;
+            maxArea = Math.max(maxArea, height * width);
+        }
+
+        return maxArea;
+    }
+
+    public static void main(String[] args) {
+        int[] heights = {2, 1, 5, 6, 2, 3};
+        System.out.println("Largest Rectangle Area: " + largestRectangleArea(heights)); // Output: 10
+    }
+}
+
+
+/*Time Complexity: O(n)
+
+Each element is pushed and popped from the stack at most once, so the time complexity is linear.
+
+Space Complexity: O(n)
+
+We are using a stack to store indices, so in the worst case, the space complexity is proportional to the number of elements in the histogram.
+
+ */

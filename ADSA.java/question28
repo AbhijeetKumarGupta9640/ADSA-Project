@@ -1,0 +1,66 @@
+public class TwoStacks {
+    int[] arr;
+    int size;
+    int top1, top2;
+
+    // Constructor
+    public TwoStacks(int n) {
+        size = n;
+        arr = new int[n];
+        top1 = -1;
+        top2 = n;
+    }
+
+    // Push to Stack1
+    public void push1(int x) {
+        if (top1 + 1 < top2) {
+            arr[++top1] = x;
+        } else {
+            throw new RuntimeException("Stack Overflow for Stack1");
+        }
+    }
+
+    // Push to Stack2
+    public void push2(int x) {
+        if (top1 + 1 < top2) {
+            arr[--top2] = x;
+        } else {
+            throw new RuntimeException("Stack Overflow for Stack2");
+        }
+    }
+
+    // Pop from Stack1
+    public int pop1() {
+        if (top1 >= 0) {
+            return arr[top1--];
+        } else {
+            throw new RuntimeException("Stack Underflow for Stack1");
+        }
+    }
+
+    // Pop from Stack2
+    public int pop2() {
+        if (top2 < size) {
+            return arr[top2++];
+        } else {
+            throw new RuntimeException("Stack Underflow for Stack2");
+        }
+    }
+
+    public static void main(String[] args) {
+        TwoStacks ts = new TwoStacks(10);
+
+        ts.push1(5);
+        ts.push1(10);
+        ts.push2(100);
+        ts.push2(200);
+
+        System.out.println("Pop from Stack1: " + ts.pop1()); // 10
+        System.out.println("Pop from Stack2: " + ts.pop2()); // 200
+    }
+}
+
+
+/*Time Complexity (All Ops): O(1) – constant time for push/pop
+
+Space Complexity: O(n) – uses a single array of size n */

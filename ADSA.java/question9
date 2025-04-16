@@ -1,0 +1,40 @@
+public class LongestCommonPrefix {
+
+    // Function to find longest common prefix
+    public static String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) return "";
+
+        // Use the first string as the base
+        String prefix = strs[0];
+
+        for (int i = 1; i < strs.length; i++) {
+            // Reduce prefix while it's not a prefix of current string
+            while (!strs[i].startsWith(prefix)) {
+                prefix = prefix.substring(0, prefix.length() - 1);
+
+                // If prefix becomes empty
+                if (prefix.isEmpty()) return "";
+            }
+        }
+
+        return prefix;
+    }
+
+    public static void main(String[] args) {
+        String[] words = {"flower", "flow", "flight"};
+        String result = longestCommonPrefix(words);
+        System.out.println("Longest Common Prefix: " + result);
+    }
+}
+
+
+
+/*Time Complexity:
+Worst case: Comparing all characters of all strings
+
+O(S) where S = total number of characters across all strings
+
+Space Complexity:
+No extra data structures used
+
+O(1) (ignoring input/output)*/

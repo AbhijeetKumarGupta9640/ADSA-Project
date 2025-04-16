@@ -1,0 +1,43 @@
+public class StringPermutations {
+
+    // Function to generate all permutations
+    public static void generatePermutations(char[] str, int index) {
+        if (index == str.length - 1) {
+            System.out.println(String.valueOf(str));
+            return;
+        }
+
+        for (int i = index; i < str.length; i++) {
+            // Swap current index with i
+            swap(str, index, i);
+
+            // Recurse on the next index
+            generatePermutations(str, index + 1);
+
+            // Backtrack
+            swap(str, index, i);
+        }
+    }
+
+    // Utility method to swap characters
+    private static void swap(char[] str, int i, int j) {
+        char temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        String input = "abc";
+        System.out.println("Permutations of '" + input + "':");
+        generatePermutations(input.toCharArray(), 0);
+    }
+}
+
+
+
+/*Time Complexity:
+O(n!)
+For a string of length n, there are n! permutations.
+
+Space Complexity:
+O(n) for recursion stack and the character array */

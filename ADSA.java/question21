@@ -1,0 +1,35 @@
+public class CountSetBits {
+
+    public static int countSetBits(int n) {
+        int count = 0;
+
+        // Create a dp array to store the number of set bits for each number from 0 to n
+        int[] dp = new int[n + 1];
+
+        // Fill dp array using the logic described
+        for (int i = 1; i <= n; i++) {
+            // The number of 1's in i is the same as i / 2, plus 1 if i is odd
+            dp[i] = dp[i >> 1] + (i & 1);
+        }
+
+        // Sum up the set bits count
+        for (int i = 0; i <= n; i++) {
+            count += dp[i];
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int n = 5; // Example input
+        int result = countSetBits(n);
+        System.out.println("Total number of 1's in binary representations from 0 to " + n + " is: " + result);
+    }
+}
+
+
+/*Time Complexity:
+O(n) — We iterate through each number from 1 to n, and for each number, we perform a constant-time operation (either a shift or an & operation).
+
+Space Complexity:
+O(n) — We use an array dp of size n + 1 to store the count of set bits for each number from 0 to n. */
